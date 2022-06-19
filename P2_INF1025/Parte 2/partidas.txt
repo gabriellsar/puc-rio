@@ -1,0 +1,6 @@
+Minnie,3,Margarida,2
+SuperPateta,0,Tio Patinhas,3
+Peninha,3,Tio Patinhas,2
+Minnie,3,Mickey,0
+Joao Bafo de Onca,2,Pato Donald,3
+Ludovico,3,Mickey,2
