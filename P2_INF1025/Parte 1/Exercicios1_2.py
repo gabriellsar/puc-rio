@@ -141,7 +141,7 @@ while arquivo:
         for str_indice in range(int(qtds_aposta)):
             indice = int(str_indice)
             cont_acertos = verfica_dentro_da_lista(lista[indice],numeros_megasena)
-            num_aposta += 1//3
+            num_aposta += 1
             if cont_acertos > 0:
                 print(f'{nome} acertou {cont_acertos} vezes na {num_aposta} aposta')
 
