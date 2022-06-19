@@ -1,3 +1,6 @@
+""""""
+from typing import List
+
 """
 Exercicios PUC-RIO para P2_INF1025
 
@@ -23,6 +26,7 @@ Por exemplo para ['praia','leitura','tv'] e a lista lparc acima seria retornada:
 
 Resposta:
 """
+
 def em_comum(lista_fav1, lista_fav2):
     cont_fav = 0
     for item in lista_fav1:
@@ -36,6 +40,7 @@ def para_um_encontro(lista_fav, lista_parceiro):
         if em_comum(lista_fav,coisas_fav)>=2:
             posiveis_parceiros.append(nome)
     return posiveis_parceiros
+
 """
 Ex2):
 Considere as listas lHerois e lVotos em que lVotos[K] é a quantidade de pessoas que
@@ -67,9 +72,10 @@ Para as listas acima a lista retornada é:
  ['xavier', 2451], ['superman', 2100], ['venom', 1567], ['tempestade', 1213],
  ['vampira', 1122], ['flash', 1002]]
 
-Resposta:
+ Resposta:
 """
- def cria_lista_ordenada_dec(lHerois, lVotos):
+
+def cria_lista_ordenada_dec(lHerois, lVotos):
     lista_ordenada_dec = []
     while len(lHerois):
         k = lVotos.index(max(lVotos))
@@ -77,6 +83,7 @@ Resposta:
         lHerois.remove(lHerois[k])
         lVotos.remove(lVotos[k])
     return lista_ordenada_dec
+
 """
 Ex3)
 Em um arquivo de nome apostas16junho.txt há o nome, a quantidade de apostas e as apostas
@@ -107,46 +114,45 @@ Aposta: ['14', '45', '52', '56', '15', '27'] -> 3
 Jogador: ZEZE
 Aposta: ['22', '45', '52', '56', '17', '18'] -> 1
 Aposta: ['17', '45', '32', '35', '15', '13'] -> 0
+
+Resposta:
 """
-from random import randint
+from random import randint, choice
 
-def numeros_megasena():
-    lista_sorteados = []
-    for _ in range(6):
-        numero_escolhido = randint(1,60)
-        if numero_escolhido not in lista_sorteados:
-            lista_sorteados.append(numero_escolhido)
-    return lista_sorteados
+cont = 0
+megasena = []
+while cont < 6:
+    num = randint(1,60)
+    if num not in megasena:
+        megasena.append(num)
+    cont += 1
 
-def verfica_dentro_da_lista(num,lista):
+arquivo_apostas = open('apostas16junho.txt','r')
+linha = arquivo_apostas.readline().replace(',',' ').split()
+nome, qtd_aposta = linha
+
+print('\tNumeros Sortados:',megasena)
+print(f"\nJogador: {nome}\n")
+
+while linha:
     cont_acertos = 0
-    for item in lista:
-        if item == int(num):
-            cont_acertos += 1
-    return cont_acertos
-
-
-numeros_megasena = numeros_megasena()
-print(f'\nNumeros Sorteados: {numeros_megasena}\n')
-arquivo = open('apostas16junho.txt','r')
-
-while arquivo:
-    linha = arquivo.readline().replace(',',' ')
-    lista = linha.split()
-    if len(lista) == 2:
-        nome, qtds_aposta = lista
-        cont_acertos = 0
-        num_aposta = 0
+    num_aposta = 1
+    linha = arquivo_apostas.readline().replace(',',' ').split()
+    if len(linha) == 2:
+        nome, qtd_aposta = linha
+        num_aposta = 1
+        print(f"\nJogador: {nome}\n")
     else:
-        for str_indice in range(int(qtds_aposta)):
-            indice = int(str_indice)
-            cont_acertos = verfica_dentro_da_lista(lista[indice],numeros_megasena)
-            num_aposta += 1
-            if cont_acertos > 0:
-                print(f'{nome} acertou {cont_acertos} vezes na {num_aposta} aposta')
+        for num in linha:
+            if int(num) in megasena:
+                cont_acertos += 1
+        if linha:
+            print(f'Aposta: {linha} ----> {cont_acertos}')
+    num_aposta += 1
 
-arquivo.close()
-"""
+arquivo_apostas.close()
+
+"""   
 Ex4)
 Ex4A) Escreva uma função que receba um curso e um nome de arquivo com os dados dos
 alunos, um aluno por linha, e exiba nome e CR de todos os alunos do curso recebido.
@@ -163,6 +169,52 @@ alunos, um aluno por linha, e grave em um arquivo de saída nomeado com o nome d
 separados por , )
 Ex4D) Escreva um programa completo para testar os itens A, B e C.
 Obs: para facilitar será fornecido um arquivo de dados alunosecursos.txt para seus testes.
+
+Reposta:
 """
 
+def exibe_CR(curso, arquivo):
+    arquivo_alunos = open(arquivo,'r')
+    linha = arquivo_alunos.readline().strip().split(',')
+    nome_completo, curso_do_aluno, CR = linha
+    while linha:
+        linha = arquivo_alunos.readline().strip().split(',')
+        nome_completo, curso_do_aluno, CR = linha
+        if curso == curso_do_aluno:
+            print(f'{nome_completo}: {CR}')
+    arquivo_alunos.close()
 
+def exibe_CR_desejado(X,arquivo):
+    arquivo_alunos = open(arquivo, 'r')
+    linha = arquivo_alunos.readline().strip().split(',')
+    nome_completo, curso_do_aluno, CR = linha
+    while linha:
+        linha = arquivo_alunos.readline().strip().split(',')
+        nome_completo, curso_do_aluno, CR = linha
+        if float(CR) > X:
+            print(linha)
+    arquivo_alunos.close()
+
+def criar_arquivo_curso(curso,arquivo):
+
+    arquivo_alunos = open(arquivo, 'r')
+    arquivo_saida = open(f'{curso}.txt', 'w')
+
+    linha = arquivo_alunos.readline().strip().split(',')
+    nome_completo, curso_do_aluno, CR = linha
+
+    while linha:
+        linha = arquivo_alunos.readline().strip().split(',')
+        nome_completo, curso_do_aluno, CR = linha
+        if curso == curso_do_aluno:
+            arquivo_saida.write(f'{nome_completo},{CR}\n')
+    arquivo_alunos.close()
+
+
+arquivo = 'alunosecursos.txt'
+lista_cursos = ['ENGENHARIA COMPUTACAO','ENGENHARIA AMBIENTAL','ENGENHARIA AMBIENTAL','ENGENHARIA PRODUCAO']
+curso = choice(lista_cursos)
+
+exibe_CR(curso, arquivo)
+exibe_CR_desejado(8, arquivo)
+criar_arquivo_curso(curso, arquivo)
