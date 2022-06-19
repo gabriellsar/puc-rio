@@ -22,7 +22,7 @@ Por exemplo para ['praia','leitura','tv'] e a lista lparc acima seria retornada:
 ['nena', 'nina', 'gege', 'tata']
 
 Resposta:
-
+"""
 def em_comum(lista_fav1, lista_fav2):
     cont_fav = 0
     for item in lista_fav1:
@@ -36,7 +36,7 @@ def para_um_encontro(lista_fav, lista_parceiro):
         if em_comum(lista_fav,coisas_fav)>=2:
             posiveis_parceiros.append(nome)
     return posiveis_parceiros
-
+"""
 Ex2):
 Considere as listas lHerois e lVotos em que lVotos[K] é a quantidade de pessoas que
 escolheram lHeroi[K] como seu herói favorito. Assuma que as quantidades de votos são
@@ -67,8 +67,8 @@ Para as listas acima a lista retornada é:
  ['xavier', 2451], ['superman', 2100], ['venom', 1567], ['tempestade', 1213],
  ['vampira', 1122], ['flash', 1002]]
 
- Resposta:
-
+Resposta:
+"""
  def cria_lista_ordenada_dec(lHerois, lVotos):
     lista_ordenada_dec = []
     while len(lHerois):
@@ -77,7 +77,7 @@ Para as listas acima a lista retornada é:
         lHerois.remove(lHerois[k])
         lVotos.remove(lVotos[k])
     return lista_ordenada_dec
-
+"""
 Ex3)
 Em um arquivo de nome apostas16junho.txt há o nome, a quantidade de apostas e as apostas
 de 6 números de jogadores da megasena, organizados da seguinte forma:
@@ -107,22 +107,6 @@ Aposta: ['14', '45', '52', '56', '15', '27'] -> 3
 Jogador: ZEZE
 Aposta: ['22', '45', '52', '56', '17', '18'] -> 1
 Aposta: ['17', '45', '32', '35', '15', '13'] -> 0
-Ex4)
-Ex4A) Escreva uma função que receba um curso e um nome de arquivo com os dados dos
-alunos, um aluno por linha, e exiba nome e CR de todos os alunos do curso recebido.
-Os dados dos alunos em uma linha estão separados por , e são: o nome completo do aluno, o
-curso do aluno e o CR do aluno.
-Ex4B) Escreva uma função que receba um valor numérico X e um nome de arquivo com os
-dados dos alunos, um aluno por linha, e exiba nome, curso e CR de todos os alunos com CR >
-X.
-Os dados dos alunos em uma linha estão separados por , e são: o nome completo do aluno, o
-curso do aluno e o CR do aluno.
-Ex4C) Escreva uma função que receba um curso e um nome de arquivo com os dados dos
-alunos, um aluno por linha, e grave em um arquivo de saída nomeado com o nome do curso
-+.txt os dados de todos os alunos do curso (um aluno por linha, somente nome e CR
-separados por , )
-Ex4D) Escreva um programa completo para testar os itens A, B e C.
-Obs: para facilitar será fornecido um arquivo de dados alunosecursos.txt para seus testes.
 """
 from random import randint
 
@@ -157,9 +141,28 @@ while arquivo:
         for str_indice in range(int(qtds_aposta)):
             indice = int(str_indice)
             cont_acertos = verfica_dentro_da_lista(lista[indice],numeros_megasena)
-            num_aposta += 1
+            num_aposta += 1//3
             if cont_acertos > 0:
                 print(f'{nome} acertou {cont_acertos} vezes na {num_aposta} aposta')
 
 arquivo.close()
+"""
+Ex4)
+Ex4A) Escreva uma função que receba um curso e um nome de arquivo com os dados dos
+alunos, um aluno por linha, e exiba nome e CR de todos os alunos do curso recebido.
+Os dados dos alunos em uma linha estão separados por , e são: o nome completo do aluno, o
+curso do aluno e o CR do aluno.
+Ex4B) Escreva uma função que receba um valor numérico X e um nome de arquivo com os
+dados dos alunos, um aluno por linha, e exiba nome, curso e CR de todos os alunos com CR >
+X.
+Os dados dos alunos em uma linha estão separados por , e são: o nome completo do aluno, o
+curso do aluno e o CR do aluno.
+Ex4C) Escreva uma função que receba um curso e um nome de arquivo com os dados dos
+alunos, um aluno por linha, e grave em um arquivo de saída nomeado com o nome do curso
++.txt os dados de todos os alunos do curso (um aluno por linha, somente nome e CR
+separados por , )
+Ex4D) Escreva um programa completo para testar os itens A, B e C.
+Obs: para facilitar será fornecido um arquivo de dados alunosecursos.txt para seus testes.
+"""
+
 
