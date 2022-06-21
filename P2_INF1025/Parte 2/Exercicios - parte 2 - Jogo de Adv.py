@@ -58,7 +58,6 @@ if LETRA in palavra_escolhida:
 elif LETRA not in palavra_escolhida and LETRA not in lista_letras_usadas:
     lista_letras_usadas.append(LETRA)
 
-
 print("\tPalavra sorteada:\t|\tLetras ja usadas:")
 print(f"\t{juntar_lista(lista_palavras)}\t|\t{juntar_lista(lista_letras_usadas)}")
 
@@ -86,7 +85,3 @@ while num_da_jogada < 10:
 if num_da_jogada ==10:
     print('\nQue falta de sorte! Tente novamente depois!!!')
     print("A palavra era " + palavra_escolhida)
-
-
-
-
