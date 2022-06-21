@@ -175,24 +175,27 @@ Reposta:
 
 def exibe_CR(curso, arquivo):
     arquivo_alunos = open(arquivo,'r')
-    linha = arquivo_alunos.readline().strip().split(',')
-    nome_completo, curso_do_aluno, CR = linha
+    linha = arquivo_alunos.readline().strip()
     while linha:
-        linha = arquivo_alunos.readline().strip().split(',')
-        nome_completo, curso_do_aluno, CR = linha
+        lin = linha.split(',')
+        nome_completo, curso_do_aluno, CR = lin
         if curso == curso_do_aluno:
             print(f'{nome_completo}: {CR}')
+        linha = arquivo_alunos.readline().strip()
+   
     arquivo_alunos.close()
+
 
 def exibe_CR_desejado(X,arquivo):
     arquivo_alunos = open(arquivo, 'r')
-    linha = arquivo_alunos.readline().strip().split(',')
-    nome_completo, curso_do_aluno, CR = linha
+    linha = arquivo_alunos.readline().strip()
     while linha:
-        linha = arquivo_alunos.readline().strip().split(',')
-        nome_completo, curso_do_aluno, CR = linha
+        lin = linha.split(',')
+        nome_completo, curso_do_aluno, CR = lin
         if float(CR) > X:
             print(linha)
+        linha = arquivo_alunos.readline().strip()
+        
     arquivo_alunos.close()
 
 def criar_arquivo_curso(curso,arquivo):
@@ -200,14 +203,15 @@ def criar_arquivo_curso(curso,arquivo):
     arquivo_alunos = open(arquivo, 'r')
     arquivo_saida = open(f'{curso}.txt', 'w')
 
-    linha = arquivo_alunos.readline().strip().split(',')
-    nome_completo, curso_do_aluno, CR = linha
+    linha = arquivo_alunos.readline().strip()
 
     while linha:
-        linha = arquivo_alunos.readline().strip().split(',')
-        nome_completo, curso_do_aluno, CR = linha
+        lin = linha.split(',')
+        nome_completo, curso_do_aluno, CR = lin
         if curso == curso_do_aluno:
             arquivo_saida.write(f'{nome_completo},{CR}\n')
+        linha = arquivo_alunos.readline().strip()
+    
     arquivo_alunos.close()
 
 
@@ -216,5 +220,7 @@ lista_cursos = ['ENGENHARIA COMPUTACAO','ENGENHARIA AMBIENTAL','ENGENHARIA AMBIE
 curso = choice(lista_cursos)
 
 exibe_CR(curso, arquivo)
+print("============================")
 exibe_CR_desejado(8, arquivo)
 criar_arquivo_curso(curso, arquivo)
+
