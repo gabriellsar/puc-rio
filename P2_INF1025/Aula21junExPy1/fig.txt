@@ -1,9 +1,0 @@
-quadrado,q1,5.6
-triangulo,ta,4.5,6,9
-quadrado,q2,8
-retangulo,ra,5,7
-circulo,c11,7
-circulo,c12,5
-triangulo,tb,5,6,8
-triangulo,tc,7,9,12
-retangulo,rb,4,9
