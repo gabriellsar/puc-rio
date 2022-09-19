@@ -6,79 +6,75 @@ TURMA:33D
 #include <stdio.h>
 #define TOT 10
 
-int min_max(int* vetor, int tot);
+void obtemCodigo(int* vC, int tot);
+void zeroContador(int* v, int n);
 int buscaRei(int valor, int* vR, int tot);
-void votosRei(int tot, int* vR, int* vVR);
-void votosRainha(int tot, int* vRa, int* vVRa);
+int min_max(int* vetor, int tot, int* mim, int* max);
 
 int main(void)
 {
-	int vRei[TOT];
-	int vVotosRei[TOT] = { 0,0,0,0,0,0,0,0,0,0 };
-	int vVotosRainha[TOT] = { 0,0,0,0,0,0,0,0,0,0 };
-	int qtd_alunos;
+	int vRei[TOT], vVotosRei[TOT], vVotosRainha[TOT];
+	int qtd_alunos, rei, rainha, pos, maior, menor;
 
 	printf("Quantos alunos fazem parte da turma?\n --> ");
-	scanf_s("%d",&qtd_alunos);
+	scanf_s("%d", &qtd_alunos);
 
-	for (int i = 0; i < TOT; i++)
+	obtemCodigo(vRei, TOT);
+	zeroContador(vVotosRei, TOT);
+	zeroContador(vVotosRainha, TOT);
+
+	for (int i = 0; i < qtd_alunos; i++)
 	{
-		printf("--Rei %d--\n", i + 1);
-		printf("Escolha um numero (1 - 10)\n --> ");
-		scanf_s("%d", vRei + i);
+		printf("Qaul seu voto para Rei e Rainha?\n");
+		scanf("%d%d", &rei, &rainha);
+		pos = buscaRei(TOT, vVotosRei, rei);
+		if (pos != -1)
+			vVotosRei[pos]++;
+		else if (0 <= rainha && rainha <= 10)
+			vVotosRainha[rainha - 1]++;
 	}
-
-	votosRainha(qtd_alunos, vVotosRainha, TOT);
-	votosRei(qtd_alunos, vRei, vVotosRei, TOT);
-
-	int* posM;
-	int* posMa = min_max(vVotosRei, TOT);
-	printf("O rei %d recebeu o maior numero de votos e o rei %d recebeu o menor numeros de votos", *(posMa + 1), *(posM + 1));
-
-	posMa = min_max(vVotosRainha, TOT);
-	printf("A rainha %d recebeu o maior numero de votos e o rainha %d recebeu o menor numeros de votos", *(posM + 1), *(posMa + 1));
-
+	min_max(vVotosRei, TOT, &maior, &menor);
+	printf("%d%d\n",vRei[maior],vRei[menor]);
+	min_max(vVotosRainha, TOT, &maior, &menor);
+	printf("%d%d\n", maior + 1, menor + 1);
+	return 0;
 }
 
-int min_max(int* vetor, int tot) {
-	int posMin = vetor[0], posMax = vetor[0];
-	for (int i = 0; i < tot; i++)
+void obtemCodigo(int* vC, int tot)
+{
+	for (int j = 0; j < tot; j++)
 	{
-		if (*(vetor + i + 1) > posMax)
-			posMax = *(vetor + i + 1);
-		else if (*(vetor + i + 1) < posMin)
-			posMin = *(vetor + i + 1);
+		printf("Forneca um cof para rei");
+		scanf("%d", &vC[j]);
 	}
-
-	return posMax;
 }
+
+void zeroContador(int* v, int n)
+{
+	for (int k = 0; k < n; k++)
+	{
+		v[k] = 0;
+	}
+}
+
 int buscaRei(int valor, int* vR, int tot) {
 	for (int i = 0; i < TOT; i++)
 	{
 		if (*(vR + i) == valor)
 			return i;
 	}
+	return -1;
 }
-void votosRei(int qtdAl, int* vR, int* vVR, int tot) {
-	for (int j = 0; j < qtdAl; j++)
+
+int min_max(int* vetor, int tot, int* mim, int* max) {
+	int posMin = 0, posMax = 0;
+	for (int w = 0; w < tot; w++)
 	{
-		int voto;
-		printf("--Aluno %d--\n", j + 1);
-		printf("Escolha o numero da rei que deseja votar (1 - 10)\n --> ");
-		scanf_s("%d", &voto);
-		int pos  = buscaRei(voto, vR, tot);
-		vVR[pos] += 1;
+		if (vetor[w] < vetor[posMin])
+			posMin = w;
+		else if (vetor[w] > vetor[posMax])
+			posMax = w;
 	}
-	return;
-}
-void votosRainha(int qtdAl, int* vVRa, int tot) {
-	for (int k = 0; k < qtdAl; k++)
-	{
-		int posVoto;
-		printf("--Aluno %d--\n", k + 1);
-		printf("Escolha o numero da rainha que deseja votar (1 - 10)\n --> ");
-		scanf_s("%d", &posVoto);
-		vVRa[posVoto - 1] += 1;
-	}
-	return;
+	*mim = posMin;
+	*max = posMax;
 }
